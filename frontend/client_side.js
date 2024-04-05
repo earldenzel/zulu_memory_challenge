@@ -16,7 +16,6 @@ function response(data, status){
 
 function init(){
     showOpening();
-    alert('The book title is \"JavaScript\", enjoy');
 }
 
 function showOpening(){
