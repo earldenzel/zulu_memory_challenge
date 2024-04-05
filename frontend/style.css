@@ -1,3 +1,65 @@
-body {
-    font-family: Helvetica,Arial,sans-serif;
+*{
+    font-family: fantasy, Helvetica,Arial,sans-serif;
+    background-color: #4a4a4a;
+}
+
+#volumeStuff{
+
+    border:solid white 1px;
+    padding-top: 2px;
+
+}
+
+#header{
+    border:solid white 3px;
+    padding:1%;
+    margin-bottom: 1vh;
+    text-align: center;
+    background-color: black;
+}
+
+#header span{
+    background-color: transparent;
+    color: white;
+}
+#opening{
+    padding-top: 5%;
+    background-color: black;
+    border:solid white 3px;
+    padding-bottom: 1%;
+}
+
+#titlebanner{
+    font-size: xx-large;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    text-align: center;
+    padding-top:20px;
+    padding-bottom: 20px;
+    background-color: transparent;
+    color: white;
+}
+
+#opening input{
+    font-size: large;
+    border:solid white 2px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: 10vh;
+    margin-top:1%;
+    background-color: #c5c5c5;
+}
+
+#footer{
+    border:solid white 2px;
+    margin-top:1%;
+    text-align: center;
+    padding: 5vh;
+    background-color: black;
+    color: white;
+
 }
