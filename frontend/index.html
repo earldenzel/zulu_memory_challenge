@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title> Zulu Memory Challenge </title>
+  <link rel="stylesheet" type="text/css" href="style.css" title="style" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="client_side.js"></script>
+</head>
+<body onload="init()">
+  <div id="header">
+    Header
+  </div>
+  <div id="opening" class="content">
+    <div id="titlebanner">Zulu's Memory Challenge</div>
+    <input name="startgame" type="button" value="Start Game" onClick="showGame()">
+    <input name="settings" type="button" value="Change Gameplay Settings" onClick="showSettings()">
+    <input name="instructions" type="button" value="How To Play" onClick="showInstructions()">
+    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()">
+  </div>
+  <div id="playgame" class="content">
+    <div id="quitbuttondiv">
+      <input name="quitgame" type="button" value="Quit Game" onClick="quitGame()">
+    </div>
+    <div id="game">
+      <div>Game</div>
+    </div>
+  </div>
+  <div id="gameover" class="content">
+    Game Over
+  </div>
+  <div id="settings" class="content">
+    Settings
+    <input name="back" type="button" value="Back" onClick="showOpening()">
+    <input name="apply" type="button" value="Apply" onClick="applySettings()">
+  </div>
+  <div id="instructions" class="content">
+    Instructions
+    <input name="back" type="button" value="Back" onClick="showOpening()">
+  </div>
+  <div id="leaderboards" class="content">
+    Leaderboard
+    <input name="back" type="button" value="Back" onClick="showOpening()">
+  </div>
+  <div id="footer">
+    Footer
+  </div>
+</body>
+</html>
