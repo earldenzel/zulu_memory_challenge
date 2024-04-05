@@ -1,0 +1,7 @@
+-image for title page
+-sound for pressing cards
+-sound for success pair
+-sound for unsuccessful pair
+-bgm
+
+-request to include links or sources for sounds 
