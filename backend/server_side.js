@@ -4,6 +4,8 @@ var app = express();
 var gameInfo = {}; // an empty JS object, later it's going to store the code for each end-user
 
 var port = 3000; //the port we will be running our server on
+var nums = new Array();
+var cards = new Array();
 
 app.post('/post', (req, res) => {
     //print info to console
@@ -22,6 +24,16 @@ app.post('/post', (req, res) => {
             });            
             res.send(gameJson);
             break;
+        case 'revealCard':
+            var gameJson = JSON.stringify({ 
+                'action': 'revealCard',
+                'cardNumber': queryInfo['cardNumber'],
+                'card': revealCard(queryInfo['cardNumber']) ,
+                'msg': 'Revealing card' 
+            });
+            console.log(gameJson);
+            res.send(gameJson);
+            break;
         default:
             res.send(JSON.stringify({ 'msg': 'error!!!' }));
             break;
@@ -29,14 +41,16 @@ app.post('/post', (req, res) => {
 }).listen(port);
 console.log("Server is running!");
 
+function revealCard(cardNumber){
+    return cards[cardNumber];
+}
+
 //if difficulty = 1, make card types = 1/4 of card count
 //if difficulty = 2, make card types = 1/3 of card count
 //if difficulty = 3, make card types = 1/2 of card count
 function generateGame(cardCount, difficulty){
-    var nums = new Array();
-    var cards = new Array();
     for( let i = 1 ; i <= cardCount ; i++ ){
-         nums[i] = i ; 
+         nums[i] = i; 
     }
 
     //Fisher-Yates Algorithm (for lottery randomization) ref. https://stackoverflow.com/questions/31899645/lottery-in-javascript-sort-algorithm
