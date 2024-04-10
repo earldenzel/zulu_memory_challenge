@@ -11,7 +11,7 @@
 </head>
 <body onload="init()">
 
-    <header id="header">
+    <header id="header" class="GeneralView">
       <span id="title">ZULU'S MEMORY CHALLENGE</span> 
       <span id="difficulty">Difficulty Setting</span>
       <span id="timer">Timer Setting</span>
@@ -21,28 +21,40 @@
       <span id="mute">
         <button id="muteButton"><i class="fas fa-volume-mute"></i></button>
       </span>
+      <!------------------------------>
 
+      <!-- Volume Slider -->
       <span id="volumeStuff">
         <input type="range" name="volumeSlider" value="50" min="0" max="100" class="slider" id="volumeSlider">
         <span id="volumeValue">50</span>
+      <!------------------------------>
 
-        <!-- Insert Audio files -->
+        <!-- INSERT AUDIO FILE PATH -->
         <audio id="backgroundMusic"><!-- autoplay -->
           <source src="/resources/BackgroundMusic.mp3" preload="auto">
         </audio>
-        <!-- -------------------------- -->
+        <!------------------------------>
       </span>
+
+      <!-- Light/Dark mode Switch -->
+      <span id="Mode">Night Mode
+        <input type="checkbox" id="darkToggle">
+        <label for="darkToggle" id="darkToggleLabel"></label>
+        
+      </span>
+
+      <!---------------------------->
       
-      <span id="light">Light/Dark Button</span>
+
     </header>
 
-  <main id="opening" class="content">
-    <div id="titlebanner">Zulu's Memory Challenge</div>
-    <input name="startgame" type="button" value="Start Game" onClick="showGame()">
-    <input name="settings" type="button" value="Change Gameplay Settings" onClick="showSettings()">
-    <input name="instructions" type="button" value="How To Play" onClick="showInstructions()">
-    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()">
-  </main>
+    <main id="opening" class="content GeneralView ">
+      <div id="titlebanner">Zulu's Memory <br> Challenge</div>
+      <input name="startgame" type="button" value="Start Game" onClick="showGame()">
+      <input name="settings" type="button" value="Change Gameplay Settings" onClick="showSettings()">
+      <input name="instructions" type="button" value="How To Play" onClick="showInstructions()">
+      <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()">
+    </main>
 
   <div id="playgame" class="content">
 
@@ -60,24 +72,42 @@
     Game Over
   </div>
 
-  <div id="settings" class="content">
-    Settings
-    <input name="back" type="button" value="Back" onClick="showOpening()">
-    <input name="apply" type="button" value="Apply" onClick="applySettings()">
+  <div id="settings" class="content GeneralView" >
+    <h1>Settings</h1>
+    <div id="GPlaySettings" class="GeneralView">
+      <p class="TextView">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+      </p>
+    </div>
+    <input name="back" type="button" value="Back" onClick="showOpening()" class="ButtonView">
+    <input name="apply" type="button" value="Apply" onClick="applySettings()" class="ButtonView">
   </div>
 
   <div id="instructions" class="content">
-    Instructions
-    <input name="back" type="button" value="Back" onClick="showOpening()">
+    <h1>Instructions</h1>
+    <div id="InstructionText" class="GeneralView">
+      <p class="TextView">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+      </p>
+    </div>
+    <input name="back" type="button" value="Back" onClick="showOpening()" class="ButtonView">
   </div>
 
   <div id="leaderboards" class="content">
-    Leaderboard
-    <input name="back" type="button" value="Back" onClick="showOpening()">
+    <h1>Leaderboard</h1>
+
+    <div id="LeaderboardText" class="GeneralView">
+      <p class="TextView">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+      </p>
+    </div>
+    <input name="back" type="button" value="Back" onClick="showOpening()" class="ButtonView">
   </div>
 
-  <footer id="footer">
-    Footer
+  <footer id="footer" class="GeneralView">
+    <span id="footerText" class="TextView">
+     © Designed By Earl, Shaun & Stephan
+    </span>
   </footer>
 </body>
 </html>

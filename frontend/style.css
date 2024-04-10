@@ -3,63 +3,136 @@
     background-color: #4a4a4a;
 }
 
-#volumeStuff{
 
-    border:solid white 1px;
-    padding-top: 2px;
-
-}
+/* Header */
 
 #header{
-    border:solid white 3px;
-    padding:1%;
-    margin-bottom: 1vh;
-    text-align: center;
-    background-color: black;
+    font-size: 18px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #header span{
     background-color: transparent;
-    color: white;
+    margin: auto;
 }
-#opening{
-    padding-top: 5%;
+
+/* LIGHT DARK MODE TOGGLE SWITCH */
+
+#Mode{
+    width: 15%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#darkToggleLabel{
+    background-color: #AFE1AF;
+    width: 5vw;
+    height: 2.4vw;
+    border-radius: 10vw;
+    cursor: pointer;
+    position: relative;
+    margin-left:1vh ;
+}
+
+
+
+#darkToggleLabel::before{
+    position:absolute;
+    content: '';
+    background-color: #fff;
+    width: 1.8vw;
+    height: 1.8vw;
+    border-radius: 20vw;
+    margin: 0.2vw;    
+    transform: translate(-2.2vw);
+    transition:0.5s;
+}
+
+input:checked + #darkToggleLabel{
+    background-color: bisque;
+}
+
+input:checked + #darkToggleLabel::before{
+    transform: translate(0.1vw);
+    
+}
+
+#darkToggle{
+    display: none;
+}
+
+/* MAIN CONTENT */
+
+.GeneralView{
+    padding: 5vh;
     background-color: black;
     border:solid white 3px;
-    padding-bottom: 1%;
+    margin-bottom: 2vh;
+    text-align: center;
+    color:white;
+}
+
+.TextView{
+    background-color: transparent;
+    text-align: center;
+}
+
+.ButtonView{
+    font-size: large;
+    border:solid white 2px;
+    display: block;
+    margin: auto;
+    width: 40%;
+    height: 10vh;
+    margin-top:1vh;
+    background-color: #c5c5c5;
+    margin-bottom: 2vh;
+}
+
+.ButtonView:hover{
+    background-color: red;
 }
 
 #titlebanner{
-    font-size: xx-large;
-    display: block;
+    font-size: 5.5vh;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
-    text-align: center;
-    padding-top:20px;
-    padding-bottom: 20px;
     background-color: transparent;
-    color: white;
 }
 
 #opening input{
     font-size: large;
     border:solid white 2px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     width: 40%;
     height: 10vh;
     margin-top:1%;
     background-color: #c5c5c5;
+    transition: 0.5s;
 }
 
-#footer{
-    border:solid white 2px;
-    margin-top:1%;
-    text-align: center;
-    padding: 5vh;
-    background-color: black;
-    color: white;
+#opening input:hover{
+    background-color: red;
+}
 
+
+#instructions h1{
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+#settings h1{
+    background-color: transparent;
+}
+
+#footerText{
+    margin: 0%;
+    padding: 0%;
 }
