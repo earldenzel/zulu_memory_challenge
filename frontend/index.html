@@ -13,9 +13,9 @@
 
     <header id="header" class="GeneralView">
       <span id="title">ZULU'S MEMORY CHALLENGE</span> 
-      <span id="difficulty">Difficulty Setting</span>
+      <span id="difficulty"></span>
       <span id="timer">0:00</span>
-      <span id="score">Score</span>
+      <span id="score">0</span>
 
       <!-- Mute button -->
       <span id="mute">
@@ -71,30 +71,25 @@
   <div id="gameover" class="content">
     <h1> Game Over</h1>
     <div id="GameSummary" class="GeneralView">
-      <p id="difficultyText" class="TextView">
-        Lorem ipsum dolor 
-      </p>
-      <p id="cardNumText" class="TextView">
-        Lorem ipsum dolor
-      </p>
-      <p id="timeFinishText" class="TextView">
-        Lorem ipsum dolor
-      </p>
-      <p id="scoreText" class="TextView">
-        Lorem ipsum dolor
-      </p>
-      <p id="maxMatchesText" class="TextView">
-        Lorem ipsum dolor
-      </p>
+      <h2> Game Summary </h2>
+      <p id="difficultyText" class="TextView"></p>
+      <p id="cardNumText" class="TextView"></p>
+      <p id="timeFinishText" class="TextView"></p>
+      <p id="scoreText" class="TextView"></p>
+      <p id="maxMatchesText" class="TextView"></p>
     </div>
     <div id="LeaderboardEntry" class="GeneralView">
+      <h2> Leaderboard Entry </h2>
       <p class="TextView">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+        Please input your name for the leaderboard
       </p>
+      <input id="leaderboardName" name="leaderboardName" type="text">
+      <input name="leaderboardSubmit" type="button" value="Leaderboards" onClick="submitToLeaderboard()" class="ButtonView">
     </div>
     <div id="ShareToSocialMedia" class="GeneralView">
+      <h2> Share to Social Media </h2>
       <p class="TextView">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+        Coming soon!
       </p>
     </div>
     <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()" class="ButtonView">

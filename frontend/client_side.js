@@ -10,6 +10,12 @@ function response(data, status){
     var response = JSON.parse(data);
 
     switch(response['action']){
+        case 'retrieveServerVariables':
+            difficulty = response['difficulty'];
+            cards = response['cardCount'];
+            showOpening();
+            $("#difficulty").text(displayDifficulty(difficulty));
+            break;
         case 'generateGame':
             //TODO: start game music
             $("#nextbuttondiv").hide();
@@ -17,7 +23,8 @@ function response(data, status){
             timerToggle();
             break;
         case 'revealCard':
-            $("#card-"+response['cardNumber']).addClass("faceUp").text(response['card']);
+            $("#card-"+response['cardNumber']).addClass("faceUp").text(response['card']); //TODO: replace with image
+            $("#score").text(response['score']);
             let concealTheCards = response['concealTheCards'];
             if (concealTheCards != null){
                 $(".gamecard").prop('disabled', true);
@@ -28,10 +35,19 @@ function response(data, status){
             }
             break;
         case 'retrieveGameSummary':
+            $("#difficultyText").text('Difficulty: ' + displayDifficulty(response['difficulty']));
+            $("#cardNumText").text('Cards Matched: ' + response['cardCount']);
+            $("#timeFinishText").text('Time Finished: ' + displayTimer(response['timeFinished']));
+            $("#scoreText").text('Score: ' + response['score']);
+            $("#maxMatchesText").text('Maximum matches in a row: ' + response['maximumStreak']);
             break;
         default:
             break;
     }
+}
+
+function submitToLeaderboard(){
+    //TODO
 }
 
 function win(){
@@ -52,10 +68,9 @@ function concealCards(concealCards, winCondition){
 }
 
 function init(){
-    //consider using cookies so app remembers last settings chosen
-    difficulty = 1;
-    cards = 10;
-    showOpening();
+    $.post(url+'?data='+JSON.stringify({
+        'action':'retrieveServerVariables'}),
+    response);
 }
 
 function showOpening(){
@@ -96,6 +111,20 @@ function displayTimer(timer){
     return Math.floor(timer/60) + ":" + (timer%60).toString().padStart(2,'0');
 }
 
+
+function displayDifficulty(difficulty){
+    switch(difficulty){
+        case 1:
+            return 'EASY';
+        case 2:
+            return 'MEDIUM';
+        case 3:
+            return 'HARD';
+        default:
+            break;
+    }
+}
+
 function timerToggle(){
     timerActive = !timerActive;
     if(timerActive){
@@ -105,9 +134,9 @@ function timerToggle(){
         clearTimeout(currentTimerTimeout);
         timer = 1;
         $("#timer").text("0:00");
+        $("#score").text("0");
     }
 }
-
 
 function selectCard(cardNumber){
     $.post(url+'?data='+JSON.stringify({
