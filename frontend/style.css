@@ -1,3 +1,153 @@
-body {
-    font-family: Helvetica,Arial,sans-serif;
+*{
+    font-family: fantasy, Helvetica,Arial,sans-serif;
+    background-color: #4a4a4a;
+}
+
+
+/* Header */
+
+#header{
+    font-size: 18px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header span{
+    background-color: transparent;
+    margin: auto;
+}
+
+/* LIGHT DARK MODE TOGGLE SWITCH */
+
+#Mode{
+    width: 15%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#darkToggleLabel{
+    background-color: #AFE1AF;
+    width: 5vw;
+    height: 2.4vw;
+    border-radius: 10vw;
+    cursor: pointer;
+    position: relative;
+    margin-left:1vh ;
+}
+
+
+
+#darkToggleLabel::before{
+    position:absolute;
+    content: '';
+    background-color: #fff;
+    width: 1.8vw;
+    height: 1.8vw;
+    border-radius: 20vw;
+    margin: 0.2vw;    
+    transform: translate(-2.2vw);
+    transition:0.5s;
+}
+
+input:checked + #darkToggleLabel{
+    background-color: bisque;
+}
+
+input:checked + #darkToggleLabel::before{
+    transform: translate(0.1vw);
+    
+}
+
+#darkToggle{
+    display: none;
+}
+
+/* MAIN CONTENT */
+
+.GeneralView{
+    padding: 5vh;
+    background-color: black;
+    border:solid white 3px;
+    margin-bottom: 2vh;
+    text-align: center;
+    color:white;
+}
+
+.TextView{
+    background-color: transparent;
+    text-align: center;
+}
+
+.ButtonView{
+    font-size: large;
+    border:solid white 2px;
+    display: block;
+    margin: auto;
+    width: 40%;
+    height: 10vh;
+    margin-top:1vh;
+    background-color: #c5c5c5;
+    margin-bottom: 2vh;
+}
+
+.ButtonView:hover{
+    background-color: red;
+}
+
+#titlebanner{
+    font-size: 5.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+}
+
+#opening input{
+    font-size: large;
+    border:solid white 2px;
+    display: block;
+    margin: auto;
+    width: 40%;
+    height: 10vh;
+    margin-top:1%;
+    background-color: #c5c5c5;
+    transition: 0.5s;
+}
+
+#opening input:hover{
+    background-color: red;
+}
+
+
+#instructions h1{
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+#settings h1{
+    background-color: transparent;
+}
+
+#footerText{
+    margin: 0%;
+    padding: 0%;
+}
+
+#footer{
+    margin-top: 2vh;
+}
+.gamecard{
+    color:black;
+    height: 150px;
+    width: 110px;
+    margin: 0.5vh;
+    background-color: lightcoral;
+    border: solid white 6px;
+    border-radius: 5%;
+    position:relative;
+    left:4vw;
 }
