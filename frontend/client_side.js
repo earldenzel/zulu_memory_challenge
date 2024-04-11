@@ -1,7 +1,7 @@
 var url = "http://localhost:3000/post"; //you will run a server on your machine!
 var difficulty;
 var cards;
-var timer = 0;
+var timer = 1;
 var timerActive = false;
 var currentTimerTimeout;
 
@@ -12,9 +12,8 @@ function response(data, status){
     switch(response['action']){
         case 'generateGame':
             //TODO: start game music
+            $("#nextbuttondiv").hide();
             $("#quitbuttondiv").show();
-            var timerDiv = $("<div>").attr("id", "timer").text(timer);
-            $("#game").append(timerDiv);
             timerToggle();
             break;
         case 'revealCard':
@@ -38,12 +37,7 @@ function response(data, status){
 function win(){
     clearTimeout(currentTimerTimeout);
     $("#quitbuttondiv").hide();
-    $("#timer").text("Board completed!");    
-    var button = $("<button />").text("Next");
-    button.on("click", function(event) {
-        showGameOver();
-    });
-    $("#timer").append(button);
+    $("#nextbuttondiv").show();
 }
 
 function concealCards(concealCards, winCondition){    
@@ -92,10 +86,14 @@ function showGame(){
 
 function incrementASecond(activeTimer){
     if(activeTimer){
-        $("#timer").text(timer);
+        $("#timer").text(displayTimer(timer));
         timer++;
         currentTimerTimeout = setTimeout(incrementASecond, 1000, activeTimer);
     }    
+}
+
+function displayTimer(timer){
+    return Math.floor(timer/60) + ":" + (timer%60).toString().padStart(2,'0');
 }
 
 function timerToggle(){
@@ -105,7 +103,8 @@ function timerToggle(){
     }
     else{
         clearTimeout(currentTimerTimeout);
-        timer = 0;
+        timer = 1;
+        $("#timer").text("0:00");
     }
 }
 
@@ -149,7 +148,6 @@ function quitGame(){
 function clearGameTable(){
     $(".gamecard").remove();
     $("#game br").remove();
-    $("#timer").remove();
 }
 
 function applySettings(){
