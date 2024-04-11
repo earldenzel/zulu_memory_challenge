@@ -136,3 +136,18 @@ input:checked + #darkToggleLabel::before{
     margin: 0%;
     padding: 0%;
 }
+
+#footer{
+    margin-top: 2vh;
+}
+.gamecard{
+    color:black;
+    height: 150px;
+    width: 110px;
+    margin: 0.5vh;
+    background-color: lightcoral;
+    border: solid white 6px;
+    border-radius: 5%;
+    position:relative;
+    left:4vw;
+}
