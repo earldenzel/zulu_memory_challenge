@@ -163,3 +163,43 @@ function showScreen(className){
         $(this).hide();
     })
 }
+
+/* HTML VOLUME SLIDER */
+
+document.addEventListener("DOMContentLoaded", function() {
+    const slider = document.getElementById("volumeSlider");
+    const volumeValue = document.getElementById("volumeValue");
+    const audio = document.getElementById("backgroundMusic");
+    const muteButton = document.getElementById("muteButton");
+    let isMuted = false;
+  
+    // Set initial volume value
+    volumeValue.textContent = slider.value;
+  
+    // Update volume and display value on slider change
+    slider.addEventListener("input", function() {
+      const volume = slider.value;
+      audio.volume = volume / 100;
+      volumeValue.textContent = volume;
+      isMuted = false;
+      updateMuteIcon();
+    });
+
+    muteButton.addEventListener("click", () =>{
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        updateMuteIcon()
+    });
+
+    function updateMuteIcon(){
+        if(isMuted){
+            muteButton.innerHTML = '<i class="fas fa-volume-mute">'
+        } else {
+            muteButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>'
+        }
+    }
+   /* To ensure that audio is unmuted in the start */
+
+   audio.muted = false;
+   updateMuteIcon();
+  });   
