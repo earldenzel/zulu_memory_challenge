@@ -53,12 +53,38 @@ app.post('/post', (req, res) => {
             console.log(gameJson);
             res.send(gameJson);
             break;
+        case 'retrieveGameSummary':
+            var gameJson = JSON.stringify({ 
+                'action': 'retrieveGameSummary',
+                'difficulty': getDifficulty(gameInfo['difficulty']),
+                'cardCount': gameInfo['cardCount'],
+                'timeFinished': gameInfo['lastPickedTime'],
+                'score': gameInfo['score'],
+                'maximumStreak': gameInfo['streak'],
+                'msg': 'Retrieving game summary' 
+            });
+            console.log(gameJson);
+            res.send(gameJson);
+            break;
         default:
             res.send(JSON.stringify({ 'msg': 'error!!!' }));
             break;
     }
 }).listen(port);
 console.log("Server is running!");
+
+function getDifficulty(difficulty){
+    switch(difficulty){
+        case 1:
+            return 'Easy';
+        case 2:
+            return 'Medium';
+        case 3:
+            return 'Hard';
+        default:
+            break;
+    }
+}
 
 function revealCard(cardNumber){
     return gameInfo['cards'][cardNumber];
@@ -124,6 +150,9 @@ function generateGame(cardCount, difficulty){
     console.log(...cards);
 
     //initialize game variables
+    
+    gameInfo['difficulty'] = difficulty;
+    gameInfo['cardCount'] = cardCount;
     gameInfo['cards'] = cards;
     gameInfo['lastPicked'] = null;
     gameInfo['lastPickedTime'] = 0;

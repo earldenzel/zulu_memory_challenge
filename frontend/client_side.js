@@ -3,7 +3,7 @@ var difficulty;
 var cards;
 var timer = 0;
 var timerActive = false;
-var currentTimerTimeout = new Array();
+var currentTimerTimeout;
 
 function response(data, status){
 
@@ -11,11 +11,15 @@ function response(data, status){
 
     switch(response['action']){
         case 'generateGame':
-            //TODO: start timer to be displayed for user, start game music
+            //TODO: start game music
+            $("#quitbuttondiv").show();
+            var timerDiv = $("<div>").attr("id", "timer").text(timer);
+            $("#game").append(timerDiv);
+            timerToggle();
             break;
         case 'revealCard':
             $("#card-"+response['cardNumber']).addClass("faceUp").text(response['card']);
-            let concealTheCards = response['concealTheCards']
+            let concealTheCards = response['concealTheCards'];
             if (concealTheCards != null){
                 $(".gamecard").prop('disabled', true);
                 if(!concealTheCards){
@@ -23,6 +27,8 @@ function response(data, status){
                 }
                 setTimeout(concealCards, 500, concealTheCards, response['win']);
             }
+            break;
+        case 'retrieveGameSummary':
             break;
         default:
             break;
@@ -65,9 +71,6 @@ function showOpening(){
 //TODO: change difficulty and cards with proper value from settings instead of random
 function showGame(){
     clearGameTable();
-    $("#quitbuttondiv").show();
-    var timerDiv = $("<div>").attr("id", "timer").text(timer);
-    $("#game").append(timerDiv);
     for(i = 1; i <=cards; i++) {
         var button = $("<button />").text("Card").addClass("gamecard").attr("id","card-" + i);
         button.on("click", {index: i}, function(event) {
@@ -85,7 +88,6 @@ function showGame(){
     response);
 
     showScreen("#playgame");
-    timerToggle();
 }
 
 function incrementASecond(activeTimer){
@@ -132,6 +134,9 @@ function showLeaderboards(){
 function showGameOver(){
     timerToggle();
     showScreen("#gameover");
+    $.post(url+'?data='+JSON.stringify({
+        'action':'retrieveGameSummary'}),
+    response);
 }
 
 function quitGame(){
