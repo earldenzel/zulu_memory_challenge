@@ -14,7 +14,7 @@
     <header id="header" class="GeneralView">
       <span id="title">ZULU'S MEMORY CHALLENGE</span> 
       <span id="difficulty">Difficulty Setting</span>
-      <span id="timer">Timer Setting</span>
+      <span id="timer">0:00</span>
       <span id="score">Score</span>
 
       <!-- Mute button -->
@@ -31,7 +31,7 @@
 
         <!-- INSERT AUDIO FILE PATH -->
         <audio id="backgroundMusic"><!-- autoplay -->
-          <source src="/resources/BackgroundMusic.mp3" preload="auto">
+          <source src="./../resources/BackgroundMusic.mp3" preload="auto">
         </audio>
         <!------------------------------>
       </span>
@@ -57,21 +57,48 @@
     </main>
 
   <div id="playgame" class="content">
-
+    <h1> Game </h1>
     <div id="quitbuttondiv">
-      <input name="quitgame" type="button" value="Quit Game" onClick="quitGame()">
+      <input name="quitgame" type="button" value="Quit Game" onClick="quitGame()" class="ButtonView">
     </div>
-
+    <div id="nextbuttondiv">
+      <input name="nextbutton" type="button" value="Next" onClick="showGameOver()" class="ButtonView">
+    </div>
     <div id="game">
-      <div>Game</div>
     </div>
-
   </div>
 
   <div id="gameover" class="content">
-    Game Over
-    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()">
-    <input name="back" type="button" value="Back to Title" onClick="showOpening()">
+    <h1> Game Over</h1>
+    <div id="GameSummary" class="GeneralView">
+      <p id="difficultyText" class="TextView">
+        Lorem ipsum dolor 
+      </p>
+      <p id="cardNumText" class="TextView">
+        Lorem ipsum dolor
+      </p>
+      <p id="timeFinishText" class="TextView">
+        Lorem ipsum dolor
+      </p>
+      <p id="scoreText" class="TextView">
+        Lorem ipsum dolor
+      </p>
+      <p id="maxMatchesText" class="TextView">
+        Lorem ipsum dolor
+      </p>
+    </div>
+    <div id="LeaderboardEntry" class="GeneralView">
+      <p class="TextView">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+      </p>
+    </div>
+    <div id="ShareToSocialMedia" class="GeneralView">
+      <p class="TextView">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
+      </p>
+    </div>
+    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()" class="ButtonView">
+    <input name="back" type="button" value="Back to Title" onClick="showOpening()" class="ButtonView">
   </div>
 
   <div id="settings" class="content GeneralView" >
@@ -108,7 +135,7 @@
 
   <footer id="footer" class="GeneralView">
     <span id="footerText" class="TextView">
-     © Designed By Earl, Shaun & Stephan
+     © Designed By Earl, Shaun & Stepan
     </span>
   </footer>
 </body>
