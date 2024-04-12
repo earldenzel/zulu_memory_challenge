@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var gameInfo = {}; // an empty JS object, later it's going to store the code for each end-user
+var gameSettings = {};
 var port = 3000; //the port we will be running our server on
 
 app.post('/post', (req, res) => {
@@ -12,6 +13,18 @@ app.post('/post', (req, res) => {
     var queryInfo = JSON.parse(req.query['data']);
 
     switch(queryInfo['action']){
+        case 'retrieveServerVariables':
+            if(gameSettings){
+                systemStartVariables();
+            }
+            var gameJson = JSON.stringify({ 
+                'action': 'retrieveServerVariables',
+                'difficulty': gameSettings['difficulty'],
+                'cardCount': gameSettings['cardCount'],
+                'msg': 'Server up and running!!!' 
+            });            
+            res.send(gameJson);
+            break;
         case 'generateGame':
             generateGame(queryInfo['cards'], queryInfo['difficulty']);
             var gameJson = JSON.stringify({ 
@@ -56,7 +69,7 @@ app.post('/post', (req, res) => {
         case 'retrieveGameSummary':
             var gameJson = JSON.stringify({ 
                 'action': 'retrieveGameSummary',
-                'difficulty': getDifficulty(gameInfo['difficulty']),
+                'difficulty': gameInfo['difficulty'],
                 'cardCount': gameInfo['cardCount'],
                 'timeFinished': gameInfo['lastPickedTime'],
                 'score': gameInfo['score'],
@@ -72,19 +85,6 @@ app.post('/post', (req, res) => {
     }
 }).listen(port);
 console.log("Server is running!");
-
-function getDifficulty(difficulty){
-    switch(difficulty){
-        case 1:
-            return 'Easy';
-        case 2:
-            return 'Medium';
-        case 3:
-            return 'Hard';
-        default:
-            break;
-    }
-}
 
 function revealCard(cardNumber){
     return gameInfo['cards'][cardNumber];
@@ -159,4 +159,9 @@ function generateGame(cardCount, difficulty){
     gameInfo['cardsMatched'] = 1;
     gameInfo['streak'] = 0;
     gameInfo['score'] = 0;
+}
+
+function systemStartVariables(){
+    gameSettings['difficulty'] = 1;
+    gameSettings['cardCount'] = 10
 }
