@@ -99,11 +99,32 @@
   <div id="settings" class="content GeneralView" >
     <h1>Settings</h1>
     <div id="GPlaySettings" class="GeneralView">
-      <p class="TextView">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
-      </p>
+      <div id="difficulty_settings">
+        <input type="radio" name="difficulty_selected" id="difficulty1" value="1" />
+        <label for="difficulty1">Easy</label>
+        <input type="radio" name="difficulty_selected" id="difficulty2" value="2" />
+        <label for="difficulty2">Medium</label>
+        <input type="radio" name="difficulty_selected" id="difficulty3" value="3" />
+        <label for="difficulty3">Hard</label>
+      </div>
+      <div id="card_count_settings">
+        <input type="radio" name="card_count_selected" id="cardCount10" value="10" />
+        <label for="cardCount10">10</label>
+        <input type="radio" name="card_count_selected" id="cardCount20" value="20" />
+        <label for="cardCount20">20</label>
+        <input type="radio" name="card_count_selected" id="cardCount30" value="30" />
+        <label for="cardCount30">30</label>
+      </div>
+      <div id="themet_settings">
+        <input type="radio" name="theme_selected" id="theme1" value="a" />
+        <label for="theme1">Standard Card Suite</label>
+        <input type="radio" name="theme_selected" id="theme2" value="b" />
+        <label for="theme2">Geometric Shape</label>
+        <input type="radio" name="theme_selected" id="theme3" value="c" />
+        <label for="theme3">Letters and Symbols</label>
+      </div>
     </div>
-    <input name="back" type="button" value="Back" onClick="showOpening()" class="ButtonView">
+    <input name="back" type="button" value="Back" onClick="resetSettings()" class="ButtonView">
     <input name="apply" type="button" value="Apply" onClick="applySettings()" class="ButtonView">
   </div>
 

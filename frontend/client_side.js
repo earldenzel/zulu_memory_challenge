@@ -2,6 +2,7 @@ var url = "http://localhost:3000/post"; //you will run a server on your machine!
 var difficulty;
 var cards;
 var timer = 1;
+var theme;
 var timerActive = false;
 var currentTimerTimeout;
 
@@ -10,11 +11,17 @@ function response(data, status){
     var response = JSON.parse(data);
 
     switch(response['action']){
+        case 'applySettings':
+            alert(response['msg']); //intentional no break
         case 'retrieveServerVariables':
             difficulty = response['difficulty'];
             cards = response['cardCount'];
-            showOpening();
+            theme = response['theme'];
             $("#difficulty").text(displayDifficulty(difficulty));
+            $("#difficulty" + difficulty).prop("checked", true);
+            $("#cardCount" + cards).prop("checked", true);
+            showOpening();
+            //TODO: handle theme here
             break;
         case 'generateGame':
             //TODO: start game music
@@ -115,10 +122,12 @@ function displayTimer(timer){
 function displayDifficulty(difficulty){
     switch(difficulty){
         case 1:
+        case "1":
             return 'EASY';
         case 2:
+        case "2":
             return 'MEDIUM';
-        case 3:
+        case "3":
             return 'HARD';
         default:
             break;
@@ -180,7 +189,16 @@ function clearGameTable(){
 }
 
 function applySettings(){
-    alert("Settings changed successfully!");
+    $.post(url+'?data='+JSON.stringify({
+        'difficulty': $('input[name="difficulty_selected"]:checked').val(),
+        'cardCount': $('input[name="card_count_selected"]:checked').val(),
+        'action':'applySettings'}),
+    response);
+}
+
+function resetSettings(){
+    $("#difficulty" + difficulty).prop("checked", true);
+    $("#cardCount" + cards).prop("checked", true);
     showOpening();
 }
 

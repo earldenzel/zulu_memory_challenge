@@ -14,16 +14,30 @@ app.post('/post', (req, res) => {
 
     switch(queryInfo['action']){
         case 'retrieveServerVariables':
-            if(gameSettings){
+            if(Object.keys(gameSettings).length === 0){
                 systemStartVariables();
             }
             var gameJson = JSON.stringify({ 
                 'action': 'retrieveServerVariables',
                 'difficulty': gameSettings['difficulty'],
                 'cardCount': gameSettings['cardCount'],
+                'theme': gameSettings['theme'],
                 'msg': 'Server up and running!!!' 
             });            
             res.send(gameJson);
+            break;
+        case 'applySettings':
+            gameSettings['difficulty'] = queryInfo['difficulty'];
+            gameSettings['cardCount'] = queryInfo['cardCount'];
+            var gameJson = JSON.stringify({ 
+                'action': 'applySettings',
+                'difficulty': gameSettings['difficulty'],
+                'cardCount': gameSettings['cardCount'],
+                'theme': gameSettings['theme'],
+                'msg': 'Settings changed successfully!' 
+            });            
+            res.send(gameJson);
+
             break;
         case 'generateGame':
             generateGame(queryInfo['cards'], queryInfo['difficulty']);
@@ -163,5 +177,6 @@ function generateGame(cardCount, difficulty){
 
 function systemStartVariables(){
     gameSettings['difficulty'] = 1;
-    gameSettings['cardCount'] = 10
+    gameSettings['cardCount'] = 10;
+    gameSettings['theme'] = 'c';
 }
