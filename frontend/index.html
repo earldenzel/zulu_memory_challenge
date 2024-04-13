@@ -53,7 +53,7 @@
       <input name="startgame" type="button" value="Start Game" onClick="showGame()">
       <input name="settings" type="button" value="Change Gameplay Settings" onClick="showSettings()">
       <input name="instructions" type="button" value="How To Play" onClick="showInstructions()">
-      <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()">
+      <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards(false)">
     </main>
 
   <div id="playgame" class="content">
@@ -78,13 +78,19 @@
       <p id="scoreText" class="TextView"></p>
       <p id="maxMatchesText" class="TextView"></p>
     </div>
-    <div id="LeaderboardEntry" class="GeneralView">
-      <h2> Leaderboard Entry </h2>
-      <p class="TextView">
-        Please input your name for the leaderboard
-      </p>
-      <input id="leaderboardName" name="leaderboardName" type="text">
-      <input name="leaderboardSubmit" type="button" value="Leaderboards" onClick="submitToLeaderboard()" class="ButtonView">
+    <div id="LeaderboardEntry" class="GeneralView">      
+      <div id="submitdiv">
+        <h2> Leaderboard Entry </h2>
+        <p class="TextView">
+          Please input your name for the leaderboard
+        </p>
+        <input id="leaderboardName" name="leaderboardName" type="text">
+        <input name="leaderboardSubmit" type="button" value="Submit" onClick="submitToLeaderboard()" class="ButtonView">
+      </div>
+      <div id="newgamediv">
+        <h2> Start a New Game </h2>
+        <input name="newgame" type="button" value="Start a New Game" onClick="showGame()" class="ButtonView">
+      </div>
     </div>
     <div id="ShareToSocialMedia" class="GeneralView">
       <h2> Share to Social Media </h2>
@@ -92,8 +98,8 @@
         Coming soon!
       </p>
     </div>
-    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards()" class="ButtonView">
-    <input name="back" type="button" value="Back to Title" onClick="showOpening()" class="ButtonView">
+    <input name="leaderboards" type="button" value="Leaderboards" onClick="showLeaderboards(true)" class="ButtonView">
+    <input name="back" type="button" value="Back to Title" onClick="discardGame()" class="ButtonView">
   </div>
 
   <div id="settings" class="content GeneralView" >
@@ -142,9 +148,28 @@
     <h1>Leaderboard</h1>
 
     <div id="LeaderboardText" class="GeneralView">
-      <p class="TextView">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam gravida, ultrices magna id, aliquam turpis. Vestibulum eleifend eleifend felis, quis cursus justo blandit congue. Proin vulputate quam tincidunt elementum pulvinar. Fusce tellus erat, commodo in mattis eget, dapibus ut urna. Mauris in hendrerit dui, id vulputate velit. Nulla facilisi. Vivamus a tincidunt nisl. Duis commodo ut neque eget fermentum. Curabitur ullamcorper arcu ornare sapien pretium, at eleifend justo dictum. Aenean sit amet tempor erat. Vivamus eu ex et dui sollicitudin tincidunt. Suspendisse suscipit, ante nec tincidunt commodo, augue est auctor lacus, bibendum mattis dolor nulla et purus. Morbi rutrum nisi sed turpis luctus tempus.
-      </p>
+      <div class="GeneralView">
+        <span class="TextView">Difficulty</span>
+        <select name="select_difficulty" id="select_difficulty">
+          <option value="1">EASY</option>
+          <option value="2">MEDIUM</option>
+          <option value="3">HARD</option>
+        </select>
+        <span class="TextView">Card Count</span>
+        <select name="select_card_count" id="select_card_count">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+      <div id="Fastest Times" class="GeneralView">
+        <h2> Fastest Time </h2>
+        <div id="fastest"></div>
+      </div>
+      <div id="Highest Points" class="GeneralView">
+        <h2> Highest Points </h2>
+        <div id="highest"></div>
+      </div>
     </div>
     <input name="back" type="button" value="Back" onClick="showOpening()" class="ButtonView">
   </div>

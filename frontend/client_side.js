@@ -5,6 +5,7 @@ var timer = 1;
 var theme;
 var timerActive = false;
 var currentTimerTimeout;
+var nameSaved = false;
 
 function response(data, status){
 
@@ -20,6 +21,8 @@ function response(data, status){
             $("#difficulty").text(displayDifficulty(difficulty));
             $("#difficulty" + difficulty).prop("checked", true);
             $("#cardCount" + cards).prop("checked", true);
+            $("#select_difficulty").val(difficulty);
+            $("#select_card_count").val(cards);
             showOpening();
             //TODO: handle theme here
             break;
@@ -28,6 +31,7 @@ function response(data, status){
             $("#nextbuttondiv").hide();
             $("#quitbuttondiv").show();
             timerToggle();
+            nameSaved = false;
             break;
         case 'revealCard':
             $("#card-"+response['cardNumber']).addClass("faceUp").text(response['card']); //TODO: replace with image
@@ -47,6 +51,17 @@ function response(data, status){
             $("#timeFinishText").text('Time Finished: ' + displayTimer(response['timeFinished']));
             $("#scoreText").text('Score: ' + response['score']);
             $("#maxMatchesText").text('Maximum matches in a row: ' + response['maximumStreak']);
+            $("#submitdiv").show();
+            $("#newgamediv").hide();
+            break;
+        case 'submitToLeaderboard':
+            nameSaved = true;
+            $("#leaderboardName").val("");
+            alert(response['msg']); 
+            $("#submitdiv").hide();
+            $("#newgamediv").show();
+            break;
+        case 'retrieveLeaderboards':
             break;
         default:
             break;
@@ -54,7 +69,17 @@ function response(data, status){
 }
 
 function submitToLeaderboard(){
-    //TODO
+    if (!nameSaved){
+        if($("#leaderboardName").val().length == 0){
+            alert("Please input a valid name!");
+        }
+        else{
+            $.post(url+'?data='+JSON.stringify({
+                'action':'submitToLeaderboard',
+                'playerName':$("#leaderboardName").val()}),
+            response);
+        }
+    }
 }
 
 function win(){
@@ -84,7 +109,6 @@ function showOpening(){
     showScreen("#opening");    
 }
 
-//TODO: change difficulty and cards with proper value from settings instead of random
 function showGame(){
     clearGameTable();
     for(i = 1; i <=cards; i++) {
@@ -120,11 +144,9 @@ function displayTimer(timer){
 
 
 function displayDifficulty(difficulty){
-    switch(difficulty){
-        case 1:
+    switch(""+difficulty){
         case "1":
             return 'EASY';
-        case 2:
         case "2":
             return 'MEDIUM';
         case "3":
@@ -164,8 +186,23 @@ function showInstructions(){
     showScreen("#instructions");
 }
 
-function showLeaderboards(){
-    showScreen("#leaderboards");
+function showLeaderboards(checkSave){
+    if (!checkSave || nameSaved || confirm("Name not provided for leaderboards. Really proceed to leaderboards?")){
+        $.post(url+'?data='+JSON.stringify({
+            'action':'retrieveLeaderboards',
+            'difficulty': difficulty,
+            'cardCount': cards
+        }),
+        response);
+        
+        showScreen("#leaderboards");  
+    }
+}
+
+function discardGame(){
+    if (nameSaved || confirm("Name not provided for leaderboards. Really go back to title screen?")){
+        showOpening();
+    }
 }
 
 function showGameOver(){

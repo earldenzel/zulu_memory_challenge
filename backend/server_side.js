@@ -3,6 +3,7 @@ var app = express();
 var gameInfo = {}; // an empty JS object, later it's going to store the code for each end-user
 var gameSettings = {};
 var port = 3000; //the port we will be running our server on
+var savedGames = new Array();
 
 app.post('/post', (req, res) => {
     //print info to console
@@ -37,7 +38,6 @@ app.post('/post', (req, res) => {
                 'msg': 'Settings changed successfully!' 
             });            
             res.send(gameJson);
-
             break;
         case 'generateGame':
             generateGame(queryInfo['cards'], queryInfo['difficulty']);
@@ -92,6 +92,32 @@ app.post('/post', (req, res) => {
             });
             console.log(gameJson);
             res.send(gameJson);
+            break;
+        case 'submitToLeaderboard':            
+            gameInfo['playerName'] = queryInfo['playerName'];
+            var gameJson = JSON.stringify({ 
+                'action': 'submitToLeaderboard',
+                'msg': 'Leaderboard entry saved!' 
+            });
+            const saveGame = {
+                'difficulty': gameInfo['difficulty'],
+                'cardCount': gameInfo['cardCount'],
+                'finishTime': gameInfo['lastPickedTime'],
+                'score': gameInfo['score'],
+                'name': gameInfo['playerName']
+            };
+            savedGames.push(saveGame);
+            res.send(gameJson);
+            break;
+        case 'retrieveLeaderboards':
+            var retrievedGames = savedGames.filter((savedGame) => (savedGame.difficulty == queryInfo['difficulty'] && savedGame.cardCount == queryInfo['cardCount']));
+            console.log(retrievedGames);
+            var gameJson = JSON.stringify({ 
+                'action': 'retrieveLeaderboards',
+                'msg': 'Retrieving leaderboard entries',
+                'orderByTime': retrievedGames.sort((a, b) => a.finishTime - b.finishTime).slice(0, 5),
+                'orderByPoints': retrievedGames.sort((a, b) => b.score - a.score).slice(0, 5)
+            });
             break;
         default:
             res.send(JSON.stringify({ 'msg': 'error!!!' }));
@@ -173,6 +199,7 @@ function generateGame(cardCount, difficulty){
     gameInfo['cardsMatched'] = 1;
     gameInfo['streak'] = 0;
     gameInfo['score'] = 0;
+    gameInfo['playerName'] = null;
 }
 
 function systemStartVariables(){
