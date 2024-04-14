@@ -118,6 +118,7 @@ app.post('/post', (req, res) => {
                 'orderByTime': retrievedGames.sort((a, b) => a.finishTime - b.finishTime).slice(0, 5),
                 'orderByPoints': retrievedGames.sort((a, b) => b.score - a.score).slice(0, 5)
             });
+            res.send(gameJson);
             break;
         default:
             res.send(JSON.stringify({ 'msg': 'error!!!' }));

@@ -5,6 +5,7 @@ var timer = 1;
 var theme;
 var timerActive = false;
 var currentTimerTimeout;
+
 var nameSaved = false;
 
 function response(data, status){
@@ -22,7 +23,15 @@ function response(data, status){
             $("#difficulty" + difficulty).prop("checked", true);
             $("#cardCount" + cards).prop("checked", true);
             $("#select_difficulty").val(difficulty);
-            $("#select_card_count").val(cards);
+            $("#select_card_count").val(cards);            
+            $('#select_card_count').on('change', function()
+            {
+                showLeaderboards(false);
+            });       
+            $('#select_difficulty').on('change', function()
+            {
+                showLeaderboards(false);
+            });
             showOpening();
             //TODO: handle theme here
             break;
@@ -62,10 +71,28 @@ function response(data, status){
             $("#newgamediv").show();
             break;
         case 'retrieveLeaderboards':
+            $("#fastest p").remove();
+            $("#fastest br").remove();
+            $("#highest p").remove();
+            $("#highest br").remove();
+            for(i = 0; i < response['orderByTime'].length; i++) {
+                var entryForFast = $("<p>").text(displayLeaderboardEntry(response['orderByTime'][i], true));
+                var entryForHigh = $("<p>").text(displayLeaderboardEntry(response['orderByPoints'][i], false));
+                $("#fastest").append(entryForFast);
+                $("#highest").append(entryForHigh);
+            }
+            showScreen("#leaderboards");  
             break;
         default:
             break;
     }
+}
+
+function displayLeaderboardEntry(listEntry, byTime){
+    if (byTime){
+        return listEntry.name + " - " + displayTimer(listEntry.finishTime);
+    }
+    return listEntry.name + " - " + listEntry.score;
 }
 
 function submitToLeaderboard(){
@@ -86,6 +113,7 @@ function win(){
     clearTimeout(currentTimerTimeout);
     $("#quitbuttondiv").hide();
     $("#nextbuttondiv").show();
+    alert("Well-played!");
 }
 
 function concealCards(concealCards, winCondition){    
@@ -190,12 +218,10 @@ function showLeaderboards(checkSave){
     if (!checkSave || nameSaved || confirm("Name not provided for leaderboards. Really proceed to leaderboards?")){
         $.post(url+'?data='+JSON.stringify({
             'action':'retrieveLeaderboards',
-            'difficulty': difficulty,
-            'cardCount': cards
+            'difficulty': $("#select_difficulty").val(),
+            'cardCount': $("#select_card_count").val()
         }),
         response);
-        
-        showScreen("#leaderboards");  
     }
 }
 
