@@ -2,25 +2,45 @@ var url = "http://localhost:3000/post"; //you will run a server on your machine!
 var difficulty;
 var cards;
 var timer = 1;
+var theme;
 var timerActive = false;
 var currentTimerTimeout;
+
+var nameSaved = false;
 
 function response(data, status){
 
     var response = JSON.parse(data);
 
     switch(response['action']){
+        case 'applySettings':
+            alert(response['msg']); //intentional no break
         case 'retrieveServerVariables':
             difficulty = response['difficulty'];
             cards = response['cardCount'];
-            showOpening();
+            theme = response['theme'];
             $("#difficulty").text(displayDifficulty(difficulty));
+            $("#difficulty" + difficulty).prop("checked", true);
+            $("#cardCount" + cards).prop("checked", true);
+            $("#select_difficulty").val(difficulty);
+            $("#select_card_count").val(cards);            
+            $('#select_card_count').on('change', function()
+            {
+                showLeaderboards(false);
+            });       
+            $('#select_difficulty').on('change', function()
+            {
+                showLeaderboards(false);
+            });
+            showOpening();
+            //TODO: handle theme here
             break;
         case 'generateGame':
             //TODO: start game music
             $("#nextbuttondiv").hide();
             $("#quitbuttondiv").show();
             timerToggle();
+            nameSaved = false;
             break;
         case 'revealCard':
             $("#card-"+response['cardNumber']).addClass("faceUp").text(response['card']); //TODO: replace with image
@@ -40,20 +60,60 @@ function response(data, status){
             $("#timeFinishText").text('Time Finished: ' + displayTimer(response['timeFinished']));
             $("#scoreText").text('Score: ' + response['score']);
             $("#maxMatchesText").text('Maximum matches in a row: ' + response['maximumStreak']);
+            $("#submitdiv").show();
+            $("#newgamediv").hide();
+            break;
+        case 'submitToLeaderboard':
+            nameSaved = true;
+            $("#leaderboardName").val("");
+            alert(response['msg']); 
+            $("#submitdiv").hide();
+            $("#newgamediv").show();
+            break;
+        case 'retrieveLeaderboards':
+            $("#fastest p").remove();
+            $("#fastest br").remove();
+            $("#highest p").remove();
+            $("#highest br").remove();
+            for(i = 0; i < response['orderByTime'].length; i++) {
+                var entryForFast = $("<p>").text(displayLeaderboardEntry(response['orderByTime'][i], true));
+                var entryForHigh = $("<p>").text(displayLeaderboardEntry(response['orderByPoints'][i], false));
+                $("#fastest").append(entryForFast);
+                $("#highest").append(entryForHigh);
+            }
+            showScreen("#leaderboards");  
             break;
         default:
             break;
     }
 }
 
+function displayLeaderboardEntry(listEntry, byTime){
+    if (byTime){
+        return listEntry.name + " - " + displayTimer(listEntry.finishTime);
+    }
+    return listEntry.name + " - " + listEntry.score;
+}
+
 function submitToLeaderboard(){
-    //TODO
+    if (!nameSaved){
+        if($("#leaderboardName").val().length == 0){
+            alert("Please input a valid name!");
+        }
+        else{
+            $.post(url+'?data='+JSON.stringify({
+                'action':'submitToLeaderboard',
+                'playerName':$("#leaderboardName").val()}),
+            response);
+        }
+    }
 }
 
 function win(){
     clearTimeout(currentTimerTimeout);
     $("#quitbuttondiv").hide();
     $("#nextbuttondiv").show();
+    alert("Well-played!");
 }
 
 function concealCards(concealCards, winCondition){    
@@ -77,7 +137,6 @@ function showOpening(){
     showScreen("#opening");    
 }
 
-//TODO: change difficulty and cards with proper value from settings instead of random
 function showGame(){
     clearGameTable();
     for(i = 1; i <=cards; i++) {
@@ -113,12 +172,12 @@ function displayTimer(timer){
 
 
 function displayDifficulty(difficulty){
-    switch(difficulty){
-        case 1:
+    switch(""+difficulty){
+        case "1":
             return 'EASY';
-        case 2:
+        case "2":
             return 'MEDIUM';
-        case 3:
+        case "3":
             return 'HARD';
         default:
             break;
@@ -155,8 +214,21 @@ function showInstructions(){
     showScreen("#instructions");
 }
 
-function showLeaderboards(){
-    showScreen("#leaderboards");
+function showLeaderboards(checkSave){
+    if (!checkSave || nameSaved || confirm("Name not provided for leaderboards. Really proceed to leaderboards?")){
+        $.post(url+'?data='+JSON.stringify({
+            'action':'retrieveLeaderboards',
+            'difficulty': $("#select_difficulty").val(),
+            'cardCount': $("#select_card_count").val()
+        }),
+        response);
+    }
+}
+
+function discardGame(){
+    if (nameSaved || confirm("Name not provided for leaderboards. Really go back to title screen?")){
+        showOpening();
+    }
 }
 
 function showGameOver(){
@@ -180,7 +252,16 @@ function clearGameTable(){
 }
 
 function applySettings(){
-    alert("Settings changed successfully!");
+    $.post(url+'?data='+JSON.stringify({
+        'difficulty': $('input[name="difficulty_selected"]:checked').val(),
+        'cardCount': $('input[name="card_count_selected"]:checked').val(),
+        'action':'applySettings'}),
+    response);
+}
+
+function resetSettings(){
+    $("#difficulty" + difficulty).prop("checked", true);
+    $("#cardCount" + cards).prop("checked", true);
     showOpening();
 }
 
